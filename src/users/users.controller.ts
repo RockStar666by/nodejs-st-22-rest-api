@@ -37,7 +37,7 @@ export class UsersController {
   getUser(@Param() params: UserParamsDto): Promise<User> {
     const user = this.userService.getUser(params.id);
     if (!user) {
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+      throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
     }
     return user;
   }
@@ -45,6 +45,12 @@ export class UsersController {
   @Post('users')
   async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
     const user = await this.userService.createUser(createUserDto);
+    if (!user) {
+      throw new HttpException(
+        'This login already exists',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
     return user;
   }
 

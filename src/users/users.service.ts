@@ -23,11 +23,15 @@ export class UsersService {
   }
 
   async getUser(id: string): Promise<User> {
-    let user = this.users.find((user) => user.id == id);
+    let user = this.users.find((user) => user.id === id);
     return user;
   }
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
+    let checkUnique = this.users.find(
+      (user) => user.login === createUserDto.login,
+    );
+    if (checkUnique) return;
     const user = { id: uuidv4(), ...createUserDto, isDeleted: false };
     this.users.push(user);
     return user;

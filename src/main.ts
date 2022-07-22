@@ -1,4 +1,4 @@
-import { VersioningType } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
@@ -8,7 +8,9 @@ async function start() {
   app.enableVersioning({
     type: VersioningType.URI,
   });
-
-  await app.listen(PORT, () => console.log(`Server started on port ${PORT}...`));
+  app.useGlobalPipes(new ValidationPipe());
+  await app.listen(PORT, () =>
+    console.log(`Server started on port ${PORT}...`),
+  );
 }
 start();
