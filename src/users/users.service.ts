@@ -19,11 +19,12 @@ export class UsersService {
   users: Array<User> = [];
 
   getAllUsers(): User[] {
-    return this.users;
+    return this.users.filter((user) => user.isDeleted === false);
   }
 
   async getUser(id: string): Promise<User> {
     let user = this.users.find((user) => user.id === id);
+    if ( user.isDeleted === true) return undefined;
     return user;
   }
 
@@ -55,7 +56,7 @@ export class UsersService {
     if (loginSubstring && limit) {
       const filteredUsers = this.users.reduce((result, user) => {
         if (
-          user.login.toLowerCase().indexOf(loginSubstring.toLowerCase()) !== -1
+          user.login.toLowerCase().indexOf(loginSubstring.toLowerCase()) !== -1 && user.isDeleted === false
         ) {
           result.push(user);
         }

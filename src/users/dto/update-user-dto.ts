@@ -5,6 +5,7 @@ import {
   Matches,
   Min,
   Max,
+  IsOptional,
 } from 'class-validator';
 
 export class UpdateUserDto {
@@ -23,5 +24,6 @@ export class UpdateUserDto {
   age: number;
 
   @IsBoolean()
+  @IsOptional()
   isDeleted: false;
 }
