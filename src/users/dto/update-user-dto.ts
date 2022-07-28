@@ -6,12 +6,15 @@ import {
   Min,
   Max,
   IsOptional,
+  IsNotEmpty,
 } from 'class-validator';
 
 export class UpdateUserDto {
+  @IsNotEmpty()
   @IsString()
   login: string;
 
+  @IsNotEmpty()
   @IsString()
   @Matches(/^(?=.*\d)(?=.*[A-Za-z])[0-9a-zA-Z]{2,}$/, {
     message: 'Password should contain at least one letter and one number',
@@ -25,5 +28,5 @@ export class UpdateUserDto {
 
   @IsBoolean()
   @IsOptional()
-  isDeleted: false;
+  isDeleted: boolean;
 }

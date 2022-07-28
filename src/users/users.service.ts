@@ -23,9 +23,15 @@ export class UsersService {
   }
 
   async getUser(id: string): Promise<User> {
-    let user = this.users.find((user) => user.id === id);
-    if ( user.isDeleted === true) return undefined;
+    const user = this.users.find((user) => user.id === id);
     return user;
+  }
+
+  async getUserIndex(id: string): Promise<number> {
+    const userIndex = this.users.findIndex(
+      (user) => user.id === id && user.isDeleted === false,
+    );
+    return userIndex;
   }
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
@@ -39,14 +45,14 @@ export class UsersService {
   }
 
   async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<User> {
-    const userIndex = this.users.findIndex((user) => user.id === id);
+    const userIndex = await this.getUserIndex(id);
     this.users[userIndex] = { ...this.users[userIndex], ...updateUserDto };
     const updUser = await this.getUser(id);
     return updUser;
   }
 
   async softDeleteUser(id: string) {
-    const userIndex = this.users.findIndex((user) => user.id === id);
+    const userIndex = await this.getUserIndex(id);
     this.users[userIndex] = { ...this.users[userIndex], isDeleted: true };
     const updUser = await this.getUser(id);
     return updUser;
@@ -56,7 +62,9 @@ export class UsersService {
     if (loginSubstring && limit) {
       const filteredUsers = this.users.reduce((result, user) => {
         if (
-          user.login.toLowerCase().indexOf(loginSubstring.toLowerCase()) !== -1 && user.isDeleted === false
+          user.login.toLowerCase().indexOf(loginSubstring.toLowerCase()) !==
+            -1 &&
+          user.isDeleted === false
         ) {
           result.push(user);
         }

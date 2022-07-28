@@ -1,9 +1,18 @@
-import { IsNumber, IsString, Matches, Max, Min } from 'class-validator';
+import {
+  IsNumber,
+  IsString,
+  Matches,
+  Max,
+  Min,
+  IsNotEmpty,
+} from 'class-validator';
 
 export class CreateUserDto {
+  @IsNotEmpty()
   @IsString()
   login: string;
 
+  @IsNotEmpty()
   @IsString()
   @Matches(/^(?=.*\d)(?=.*[A-Za-z])[0-9a-zA-Z]{2,}$/, {
     message: 'Password should contain at least one letter and one number',
