@@ -23,8 +23,13 @@ export class UsersService {
   }
 
   async getUser(id: string): Promise<User> {
-    let user = this.users.find((user) => user.id == id);
+    const user = this.users.find((user) => user.id == id);
     return user;
+  }
+
+  async getUserIndex(id: string): Promise<number> {
+    const userIndex = this.users.findIndex((user) => user.id === id);
+    return userIndex;
   }
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
@@ -34,17 +39,17 @@ export class UsersService {
   }
 
   async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<User> {
-    const userIndex = this.users.findIndex((user) => user.id === id);
+    const userIndex = await this.getUserIndex(id);
     this.users[userIndex] = { ...this.users[userIndex], ...updateUserDto };
     const updUser = await this.getUser(id);
     return updUser;
   }
 
   async softDeleteUser(id: string) {
-    const userIndex = this.users.findIndex((user) => user.id === id);
+    const userIndex = await this.getUserIndex(id);
     this.users[userIndex] = { ...this.users[userIndex], isDeleted: true };
-    const updUser = await this.getUser(id);
-    return updUser;
+    const deletedUser = await this.getUser(id);
+    return deletedUser;
   }
 
   async getAutoSuggestUsers(loginSubstring?: string, limit?: string) {
