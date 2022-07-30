@@ -4,9 +4,9 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.createTable('Users', {
       id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
-        autoIncrement: true,
         unique: true,
         primaryKey: true,
       },
@@ -19,7 +19,7 @@ module.exports = {
         allowNull: false,
       },
       age: {
-        type: Sequelize.NUMBER,
+        type: Sequelize.INTEGER,
       },
       isDeleted: {
         type: Sequelize.BOOLEAN,
