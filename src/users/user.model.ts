@@ -17,8 +17,8 @@ export class User extends Model<User> {
   @Column({ type: DataType.STRING, unique: false, allowNull: false })
   password: string;
 
-  @Column({ type: DataType.NUMBER, unique: false, allowNull: true })
-  age: string;
+  @Column({ type: DataType.INTEGER, unique: false, allowNull: true })
+  age: number;
 
   @Column({ type: DataType.BOOLEAN, defaultValue: false })
   isDeleted: boolean;

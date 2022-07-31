@@ -8,8 +8,8 @@ const config = dbConfig[env];
 
 @Module({
   imports: [
-    UsersModule,
     SequelizeModule.forRoot({ ...config, models: [User] }),
+    UsersModule,
   ],
   controllers: [],
   providers: [],

@@ -1,11 +1,14 @@
 {
-  "develop": {
+  "development": {
     "dialect": "postgres",
     "dialectOptions": {
       "ssl": {
         "require": true,
         "rejectUnauthorized": false
       }
+    },
+    "define": {
+      "timestamps": false
     },
     "username": "ehtvltsrnrdkrz",
     "password": "4cdbc855146016dcae522e15766ea7c00f4db2a652fc46a9954f39fc68e193a8",
@@ -21,6 +24,9 @@
         "rejectUnauthorized": false
       }
     },
+    "define": {
+      "timestamps": false
+    },
     "username": "ehtvltsrnrdkrz",
     "password": "4cdbc855146016dcae522e15766ea7c00f4db2a652fc46a9954f39fc68e193a8",
     "database": "de6takmp0lqgtt",
@@ -34,6 +40,9 @@
         "require": true,
         "rejectUnauthorized": false
       }
+    },
+    "define": {
+      "timestamps": false
     },
     "username": "ehtvltsrnrdkrz",
     "password": "4cdbc855146016dcae522e15766ea7c00f4db2a652fc46a9954f39fc68e193a8",

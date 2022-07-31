@@ -24,9 +24,9 @@ export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
   @Get('users')
-  async getAutoSuggestUsers(@Query() query: AutoSuggestUsersDto) {
+  async getAllUsers(@Query() query?: AutoSuggestUsersDto) {
     const { loginSubstring, limit } = query;
-    const filteredUsers = await this.userService.getAutoSuggestUsers(
+    const filteredUsers = await this.userService.getAllUsers(
       loginSubstring,
       limit,
     );
@@ -61,11 +61,17 @@ export class UsersController {
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<User> {
     const user = await this.userService.updateUser(params.id, updateUserDto);
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
+    }
     return user;
   }
 
   @Delete('users/:id')
   async softDeleteUser(@Param() params: UserParamsDto) {
-    await this.userService.softDeleteUser(params.id);
+    const user = await this.userService.softDeleteUser(params.id);
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
+    }
   }
 }

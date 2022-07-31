@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { CreateUserDto } from '../dto/create-user-dto';
+import { UpdateUserDto } from '../dto/update-user-dto';
 import { User } from '../user.entity';
 import { UsersRepository } from './users.repository';
 
@@ -8,20 +10,20 @@ class InMemoryUsersRepository implements UsersRepository {
 
   constructor() {}
 
-  findById(id: string): User {
+  async findById(id: string): Promise<User> {
     const user = this.users.find((user) => user.id === id);
     return user;
   }
-  findAll(): User[] {
+  async findAll(): Promise<User[]> {
     throw new Error('Method not implemented.');
   }
-  delete(): User {
+  async delete(id: string): Promise<User> {
     throw new Error('Method not implemented.');
   }
-  create(): User {
+  async create(dto: CreateUserDto): Promise<User> {
     throw new Error('Method not implemented.');
   }
-  update(): User {
+  async update(id: string, dto: UpdateUserDto): Promise<User> {
     throw new Error('Method not implemented.');
   }
 }
