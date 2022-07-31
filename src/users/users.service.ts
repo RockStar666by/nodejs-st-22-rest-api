@@ -1,16 +1,12 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user-dto';
 import { UpdateUserDto } from './dto/update-user-dto';
 import { UsersRepository } from './repository/users.repository';
-// import { InjectModel } from '@nestjs/sequelize';
-// import { User as MUser } from './user.model';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    @Inject('UsersRepository') private usersRepository: UsersRepository,
-  ) {
+  constructor(private usersRepository: UsersRepository) {
     this.usersRepository = usersRepository;
   }
 

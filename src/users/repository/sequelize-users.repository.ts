@@ -11,7 +11,7 @@ import { UpdateUserDto } from '../dto/update-user-dto';
 class SequelizeUsersRepository implements UsersRepository {
   constructor(@InjectModel(UserModel) private users: typeof UserModel) {}
 
-  async findById(id): Promise<User> {
+  async findById(id: string): Promise<User> {
     const user = await this.users.findByPk(id);
     return user;
   }
@@ -25,6 +25,7 @@ class SequelizeUsersRepository implements UsersRepository {
             [Op.substring]: loginSubstring,
           },
         }),
+        isDeleted: false,
       },
       limit: limit,
       order: [['login', 'ASC']],
