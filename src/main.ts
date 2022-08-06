@@ -1,6 +1,12 @@
+import 'dotenv/config';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+
+console.log(
+  '\x1b[33m%s\x1b[0m',
+  `WARNING! App is running in " ${process.env.NODE_ENV.toUpperCase()} " mode. To change mode, please, go to .env file.\n`,
+);
 
 async function start() {
   const PORT = process.env.PORT || 4000;
