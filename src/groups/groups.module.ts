@@ -22,4 +22,4 @@ import { GroupsRepository } from './repository/groups.repository';
   ],
   exports: [SequelizeModule],
 })
-export class UsersModule {}
+export class GroupsModule {}

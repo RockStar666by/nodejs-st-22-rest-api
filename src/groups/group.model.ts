@@ -1,4 +1,5 @@
 import { Column, Model, Table, DataType } from 'sequelize-typescript';
+import { Permission } from './group.entity';
 
 @Table
 export class Group extends Model<Group> {
@@ -12,14 +13,8 @@ export class Group extends Model<Group> {
   id: string;
 
   @Column({ type: DataType.STRING, unique: true, allowNull: false })
-  login: string;
+  name: string;
 
-  @Column({ type: DataType.STRING, unique: false, allowNull: false })
-  password: string;
-
-  @Column({ type: DataType.INTEGER, unique: false, allowNull: true })
-  age: number;
-
-  @Column({ type: DataType.BOOLEAN, defaultValue: false })
-  isDeleted: boolean;
+  @Column({ type: DataType.ARRAY(DataType.STRING), allowNull: false })
+  permissions: Permission[];
 }

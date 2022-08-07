@@ -14,6 +14,7 @@ import { Group } from './group.entity';
 import { GroupsService } from './groups.service';
 import { CreateGroupDto } from './dto/create-group-dto';
 import { UpdateGroupDto } from './dto/update-group-dto';
+import { GroupParamsDto } from './dto/group-params-dto';
 
 @Controller({
   version: '1',
@@ -21,51 +22,53 @@ import { UpdateGroupDto } from './dto/update-group-dto';
 export class GroupsController {
   constructor(private readonly groupService: GroupsService) {}
 
-  @Get('users')
+  @Get('groups')
   async getAllGroups() {
-    const filteredUsers = await this.groupService.getAllUsers();
+    const filteredUsers = await this.groupService.getAllGroups();
     return filteredUsers;
   }
 
-  @Get('users/:id')
-  async getUser(@Param() params: any): Promise<Group> {
-    const user = await this.groupService.getUser(params.id);
-    console.log(user);
-    if (!user) {
-      throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
+  @Get('groups/:id')
+  async getGroup(@Param() params: GroupParamsDto): Promise<Group> {
+    const group = await this.groupService.getGroup(params.id);
+    if (!group) {
+      throw new HttpException('Group not found', HttpStatus.BAD_REQUEST);
     }
-    return user;
+    return group;
   }
 
-  @Post('users')
-  async createUser(@Body() createGroupDto: CreateGroupDto): Promise<Group> {
-    const user = await this.groupService.createUser(createGroupDto);
-    if (!user) {
+  @Post('groups')
+  async createGroup(@Body() createGroupDto: CreateGroupDto): Promise<Group> {
+    const group = await this.groupService.createGroup(createGroupDto);
+    if (!group) {
       throw new HttpException(
         'This login already exists',
         HttpStatus.BAD_REQUEST,
       );
     }
-    return user;
+    return group;
   }
 
-  @Put('users/:id')
-  async updateUser(
-    @Param() params: any,
-    @Body() updateUserDto: any,
+  @Put('groups/:id')
+  async updateGroup(
+    @Param() params: GroupParamsDto,
+    @Body() updateGroupDto: UpdateGroupDto,
   ): Promise<Group> {
-    const user = await this.groupService.updateUser(params.id, updateUserDto);
-    if (!user) {
-      throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
+    const group = await this.groupService.updateGroup(
+      params.id,
+      updateGroupDto,
+    );
+    if (!group) {
+      throw new HttpException('Group not found', HttpStatus.BAD_REQUEST);
     }
-    return user;
+    return group;
   }
 
-  @Delete('users/:id')
-  async softDeleteUser(@Param() params: any) {
-    const user = await this.groupService.softDeleteUser(params.id);
-    if (!user) {
-      throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
+  @Delete('groups/:id')
+  async deleteGroup(@Param() params: GroupParamsDto) {
+    const group = await this.groupService.deleteGroup(params.id);
+    if (!group) {
+      throw new HttpException('Group not found', HttpStatus.BAD_REQUEST);
     }
   }
 }

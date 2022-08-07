@@ -4,112 +4,47 @@ import { CreateGroupDto } from '../dto/create-group-dto';
 import { UpdateGroupDto } from '../dto/update-group-dto';
 import { Group } from '../group.entity';
 import { GroupsRepository } from './groups.repository';
-import { sortByLogin } from 'src/utils/sort-by-login';
 @Injectable()
 class InMemoryGroupsRepository implements GroupsRepository {
-  private users: Array<Group> = [
-    {
-      id: uuidv4(),
-      login: 'johndoe111',
-      password: '12345678abc',
-      age: 20,
-      isDeleted: false,
-    },
-    {
-      id: uuidv4(),
-      login: 'johndoe222',
-      password: '12345678abc',
-      age: 21,
-      isDeleted: false,
-    },
-    {
-      id: uuidv4(),
-      login: 'johndoe333',
-      password: '12345678abc',
-      age: 22,
-      isDeleted: false,
-    },
-    {
-      id: uuidv4(),
-      login: 'johndoe444',
-      password: '12345678abc',
-      age: 23,
-      isDeleted: false,
-    },
-    {
-      id: uuidv4(),
-      login: 'johndoe555',
-      password: '12345678abc',
-      age: 24,
-      isDeleted: false,
-    },
-    {
-      id: uuidv4(),
-      login: 'johndoe666',
-      password: '12345678abc',
-      age: 25,
-      isDeleted: false,
-    },
-  ];
+  private groups: Array<Group> = [];
 
   async findById(id: string): Promise<Group> {
-    const user = this.users.find((user) => user.id === id);
-    return user;
+    return this.groups.find((group) => group.id === id);
   }
 
   private async findIndex(id: string): Promise<number> {
-    const user = this.users.findIndex((user) => user.id === id);
-    return user;
+    return this.groups.findIndex((group) => group.id === id);
   }
 
-  async findAll(
-    loginSubstring?: string,
-    limit: string = this.users.length.toString(),
-  ): Promise<Group[]> {
-    if (loginSubstring) {
-      const filteredUsers = this.users.reduce((result, user) => {
-        if (
-          user.login.toLowerCase().indexOf(loginSubstring.toLowerCase()) !==
-            -1 &&
-          user.isDeleted === false
-        ) {
-          result.push(user);
-        }
-        return result;
-      }, []);
-      return filteredUsers.sort(sortByLogin).slice(0, Number(limit));
-    } else
-      return this.users
-        .filter((user) => user.isDeleted === false)
-        .slice(0, Number(limit));
+  async findAll(): Promise<Group[]> {
+    return this.groups;
   }
 
   async delete(id: string): Promise<Group> {
-    const userIndex = await this.findIndex(id);
-    this.users[userIndex] = {
-      ...this.users[userIndex],
-      isDeleted: true,
-    };
-    const updUser = await this.findById(id);
-    return updUser;
+    const group = this.findById(id);
+    const index = await this.findIndex(id);
+    if (index > -1) {
+      this.groups.splice(index, 1);
+    }
+    return group;
   }
 
   async create(dto: CreateGroupDto): Promise<Group> {
-    let checkUnique = this.users.find((user) => user.login === dto.login);
+    let checkUnique = this.groups.find((group) => group.name === dto.name);
     if (checkUnique) return;
-    const user = { id: uuidv4(), ...dto, isDeleted: false };
-    this.users.push(user);
-    return user;
+    const group = { id: uuidv4(), ...dto };
+    this.groups.push(group);
+    return group;
   }
 
   async update(id: string, dto: UpdateGroupDto): Promise<Group> {
-    const userIndex = await this.findIndex(id);
-    this.users[userIndex] = {
-      ...this.users[userIndex],
+    const index = await this.findIndex(id);
+    this.groups[index] = {
+      ...this.groups[index],
       ...dto,
     };
-    const updUser = await this.findById(id);
-    return updUser;
+    const updGroup = await this.findById(id);
+    return updGroup;
   }
 }
 

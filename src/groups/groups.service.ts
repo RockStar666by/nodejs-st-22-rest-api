@@ -6,33 +6,33 @@ import { GroupsRepository } from './repository/groups.repository';
 
 @Injectable()
 export class GroupsService {
-  constructor(private usersRepository: GroupsRepository) {
-    this.usersRepository = usersRepository;
+  constructor(private groupsRepository: GroupsRepository) {}
+
+  async getAllGroups(
+    loginSubstring?: string,
+    limit?: string,
+  ): Promise<Group[]> {
+    const groups = this.groupsRepository.findAll(loginSubstring, limit);
+    return groups;
   }
 
-  async getAllUsers(loginSubstring?: string, limit?: string): Promise<Group[]> {
-    console.log('ALL USERS');
-    const users = this.usersRepository.findAll(loginSubstring, limit);
-    return users;
+  async getGroup(id: string): Promise<Group> {
+    const group = this.groupsRepository.findById(id);
+    return group;
   }
 
-  async getUser(id: string): Promise<Group> {
-    const user = this.usersRepository.findById(id);
-    return user;
+  async createGroup(dto: CreateGroupDto): Promise<Group> {
+    const createdGroup = this.groupsRepository.create(dto);
+    return createdGroup;
   }
 
-  async createUser(createUserDto: CreateGroupDto): Promise<Group> {
-    const createdUser = this.usersRepository.create(createUserDto);
-    return createdUser;
+  async updateGroup(id: string, dto: UpdateGroupDto): Promise<Group> {
+    const updGroup = this.groupsRepository.update(id, dto);
+    return updGroup;
   }
 
-  async updateUser(id: string, updateUserDto: UpdateGroupDto): Promise<Group> {
-    const updUser = this.usersRepository.update(id, updateUserDto);
-    return updUser;
-  }
-
-  async softDeleteUser(id: string) {
-    const delUser = this.usersRepository.delete(id);
-    return delUser;
+  async deleteGroup(id: string) {
+    const delGroup = this.groupsRepository.delete(id);
+    return delGroup;
   }
 }

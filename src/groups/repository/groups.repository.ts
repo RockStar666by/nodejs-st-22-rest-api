@@ -1,4 +1,4 @@
-import { Repository } from '../../interfaces/user.repository.interface';
+import { Repository } from '../../interfaces/group.repository.interface';
 import { CreateGroupDto } from '../dto/create-group-dto';
 import { UpdateGroupDto } from '../dto/update-group-dto';
 import { Group } from '../group.entity';
