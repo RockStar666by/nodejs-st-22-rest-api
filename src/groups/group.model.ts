@@ -1,7 +1,15 @@
-import { Column, Model, Table, DataType } from 'sequelize-typescript';
+import {
+  Column,
+  Model,
+  Table,
+  DataType,
+  BelongsToMany,
+} from 'sequelize-typescript';
+import { UserGroup } from 'src/database/relations/user-group.model';
+import { User } from 'src/users/user.model';
 import { Permission } from './group.entity';
 
-@Table
+@Table({ freezeTableName: true })
 export class Group extends Model<Group> {
   @Column({
     type: DataType.UUID,
@@ -17,4 +25,7 @@ export class Group extends Model<Group> {
 
   @Column({ type: DataType.ARRAY(DataType.STRING), allowNull: false })
   permissions: Permission[];
+
+  @BelongsToMany(() => User, () => UserGroup)
+  users: User[];
 }

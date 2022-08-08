@@ -17,8 +17,9 @@ class SequelizeGroupsRepository implements GroupsRepository {
   }
 
   async findAll(): Promise<Group[]> {
-    console.log('ALL USERS');
-    const users = await this.groups.findAll({});
+    const users = await this.groups.findAll({
+      include: { all: true },
+    });
     return users;
   }
 

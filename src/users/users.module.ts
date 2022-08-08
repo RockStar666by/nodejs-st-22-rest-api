@@ -6,9 +6,11 @@ import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { User } from './user.model';
 import { UsersRepository } from './repository/users.repository';
+import { Group } from 'src/groups/group.model';
+import { UserGroup } from 'src/database/relations/user-group.model';
 
 @Module({
-  imports: [SequelizeModule.forFeature([User])],
+  imports: [SequelizeModule.forFeature([User, Group, UserGroup])],
   controllers: [UsersController],
   providers: [
     UsersService,

@@ -19,6 +19,7 @@ class SequelizeUsersRepository implements UsersRepository {
   async findAll(loginSubstring?: string, limit?: number): Promise<User[]> {
     console.log('ALL USERS');
     const users = await this.users.findAll({
+      include: { all: true },
       where: {
         ...(loginSubstring && {
           login: {
