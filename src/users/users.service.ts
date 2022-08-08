@@ -6,12 +6,9 @@ import { UsersRepository } from './repository/users.repository';
 
 @Injectable()
 export class UsersService {
-  constructor(private usersRepository: UsersRepository) {
-    this.usersRepository = usersRepository;
-  }
+  constructor(private usersRepository: UsersRepository) {}
 
   async getAllUsers(loginSubstring?: string, limit?: string): Promise<User[]> {
-    console.log('ALL USERS');
     const users = this.usersRepository.findAll(loginSubstring, limit);
     return users;
   }
