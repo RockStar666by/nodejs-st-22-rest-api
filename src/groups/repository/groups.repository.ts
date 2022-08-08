@@ -20,7 +20,7 @@ class GroupsRepository implements Repository {
   update(id: string, dto: UpdateGroupDto): Promise<Group> {
     throw new Error('Method not implemented.');
   }
-  addUsersToGroup(id: string, dto: AddUsersToGroupDto): Promise<Group> {
+  addUsersToGroup(id: string, dto: AddUsersToGroupDto): Promise<void | Group> {
     throw new Error('Method not implemented.');
   }
 }

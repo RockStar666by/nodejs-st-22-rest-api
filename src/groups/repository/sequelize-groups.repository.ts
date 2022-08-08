@@ -8,10 +8,14 @@ import { CreateGroupDto } from '../dto/create-group-dto';
 import { UpdateGroupDto } from '../dto/update-group-dto';
 import { AddUsersToGroupDto } from '../dto/add-users-to-group-dto';
 import { User } from 'src/users/user.model';
+import { Sequelize } from 'sequelize-typescript';
 
 @Injectable()
 class SequelizeGroupsRepository implements GroupsRepository {
-  constructor(@InjectModel(GroupModel) private groups: typeof GroupModel) {}
+  constructor(
+    @InjectModel(GroupModel) private groups: typeof GroupModel,
+    private sequelize: Sequelize,
+  ) {}
 
   async findById(id: string): Promise<Group> {
     const group = await this.groups.findByPk(id);
@@ -27,7 +31,6 @@ class SequelizeGroupsRepository implements GroupsRepository {
 
   async delete(id: string): Promise<Group> {
     const group = await this.groups.findByPk(id);
-    // group.$set('users', []);
     await this.groups.destroy({
       where: { id: id },
     });
@@ -48,10 +51,20 @@ class SequelizeGroupsRepository implements GroupsRepository {
     return group;
   }
 
-  async addUsersToGroup(id: string, dto: AddUsersToGroupDto): Promise<Group> {
-    const group = await this.groups.findByPk(id);
-    group.$add('users', dto.userIds);
-    return group;
+  async addUsersToGroup(
+    id: string,
+    dto: AddUsersToGroupDto,
+  ): Promise<void | Group> {
+    try {
+      await this.sequelize.transaction(async (t) => {
+        const transactionHost = { transaction: t };
+        const group = await this.groups.findByPk(id, transactionHost);
+        await group.$add('users', dto.userIds, transactionHost);
+        return group;
+      });
+    } catch (err) {
+      throw new Error(err);
+    }
   }
 }
 
