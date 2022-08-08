@@ -27,5 +27,5 @@ export class Group extends Model<Group> {
   permissions: Permission[];
 
   @BelongsToMany(() => User, () => UserGroup)
-  users: User[];
+  users: string[];
 }
