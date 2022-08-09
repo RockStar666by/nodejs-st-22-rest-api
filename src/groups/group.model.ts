@@ -9,7 +9,7 @@ import { UserGroup } from 'src/database/relations/user-group.model';
 import { User } from 'src/users/user.model';
 import { Permission } from './group.entity';
 
-@Table({ freezeTableName: true })
+@Table
 export class Group extends Model<Group> {
   @Column({
     type: DataType.UUID,
