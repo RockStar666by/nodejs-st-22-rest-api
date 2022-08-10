@@ -35,14 +35,16 @@ class SequelizeUsersRepository implements UsersRepository {
   }
 
   async delete(id: string): Promise<User> {
+    const user = await this.users.findByPk(id);
+    user.$set('groups', []);
     await this.users.update(
       { isDeleted: true },
       {
         where: { id: id },
       },
     );
-    const user = await this.users.findByPk(id);
-    return user;
+    const userDeleted = await this.users.findByPk(id);
+    return userDeleted;
   }
 
   async create(dto: CreateUserDto): Promise<User> {

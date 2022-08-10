@@ -3,6 +3,7 @@ import { Group } from './group.entity';
 import { CreateGroupDto } from './dto/create-group-dto';
 import { UpdateGroupDto } from './dto/update-group-dto';
 import { GroupsRepository } from './repository/groups.repository';
+import { AddUsersToGroupDto } from './dto/add-users-to-group-dto';
 
 @Injectable()
 export class GroupsService {
@@ -34,5 +35,10 @@ export class GroupsService {
   async deleteGroup(id: string) {
     const delGroup = this.groupsRepository.delete(id);
     return delGroup;
+  }
+
+  async addUsersToGroup(id: string, dto: AddUsersToGroupDto) {
+    const updGroup = this.groupsRepository.addUsersToGroup(id, dto);
+    return updGroup;
   }
 }

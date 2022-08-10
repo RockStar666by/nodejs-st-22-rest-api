@@ -1,6 +1,7 @@
 import { Repository } from '../../interfaces/group.repository.interface';
 import { CreateGroupDto } from '../dto/create-group-dto';
 import { UpdateGroupDto } from '../dto/update-group-dto';
+import { AddUsersToGroupDto } from '../dto/add-users-to-group-dto';
 import { Group } from '../group.entity';
 
 class GroupsRepository implements Repository {
@@ -17,6 +18,9 @@ class GroupsRepository implements Repository {
     throw new Error('Method not implemented.');
   }
   update(id: string, dto: UpdateGroupDto): Promise<Group> {
+    throw new Error('Method not implemented.');
+  }
+  addUsersToGroup(id: string, dto: AddUsersToGroupDto): Promise<void | Group> {
     throw new Error('Method not implemented.');
   }
 }

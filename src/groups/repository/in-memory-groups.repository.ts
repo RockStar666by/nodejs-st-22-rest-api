@@ -4,6 +4,7 @@ import { CreateGroupDto } from '../dto/create-group-dto';
 import { UpdateGroupDto } from '../dto/update-group-dto';
 import { Group } from '../group.entity';
 import { GroupsRepository } from './groups.repository';
+import { AddUsersToGroupDto } from '../dto/add-users-to-group-dto';
 @Injectable()
 class InMemoryGroupsRepository implements GroupsRepository {
   private groups: Array<Group> = [];
@@ -45,6 +46,10 @@ class InMemoryGroupsRepository implements GroupsRepository {
     };
     const updGroup = await this.findById(id);
     return updGroup;
+  }
+
+  async addUsersToGroup(id: string, dto: AddUsersToGroupDto): Promise<Group> {
+    throw new Error('Method not implemented.');
   }
 }
 
