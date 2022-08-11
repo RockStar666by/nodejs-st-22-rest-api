@@ -18,15 +18,13 @@ class SequelizeGroupsRepository implements GroupsRepository {
   ) {}
 
   async findById(id: string): Promise<Group> {
-    const group = await this.groups.findByPk(id);
-    return group;
+    return await this.groups.findByPk(id);
   }
 
   async findAll(): Promise<Group[]> {
-    const groups = await this.groups.findAll({
+    return await this.groups.findAll({
       include: User,
     });
-    return groups;
   }
 
   async delete(id: string): Promise<Group> {
@@ -39,16 +37,14 @@ class SequelizeGroupsRepository implements GroupsRepository {
   }
 
   async create(dto: CreateGroupDto): Promise<Group> {
-    const group = await this.groups.create(dto);
-    return group;
+    return await this.groups.create(dto);
   }
 
   async update(id: string, dto: UpdateGroupDto): Promise<Group> {
     await this.groups.update(dto, {
       where: { id: id },
     });
-    const group = await this.groups.findByPk(id);
-    return group;
+    return await this.groups.findByPk(id);
   }
 
   async addUsersToGroup(
