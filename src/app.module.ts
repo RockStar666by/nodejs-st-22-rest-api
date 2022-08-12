@@ -6,7 +6,7 @@ import { User } from './users/user.model';
 import { Group } from './groups/group.model';
 import { GroupsModule } from './groups/groups.module';
 import { UserGroup } from './database/relations/user-group.model';
-import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import { RequestLoggerMiddleware } from './common/middleware/request-logger.middleware';
 const env = process.env.NODE_ENV || 'development';
 const config = dbConfig[env];
 
@@ -25,6 +25,6 @@ const config = dbConfig[env];
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes('*');
+    consumer.apply(RequestLoggerMiddleware).forRoutes('*');
   }
 }
