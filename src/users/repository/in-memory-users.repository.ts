@@ -52,6 +52,10 @@ class InMemoryUsersRepository implements UsersRepository {
     },
   ];
 
+  findByLogin(login: string): Promise<User> {
+    throw new Error('Method not implemented.');
+  }
+
   async findById(id: string): Promise<User> {
     const user = this.users.find((user) => user.id === id);
     return user;

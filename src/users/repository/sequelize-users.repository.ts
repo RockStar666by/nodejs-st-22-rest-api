@@ -11,6 +11,16 @@ import { UpdateUserDto } from '../dto/update-user-dto';
 class SequelizeUsersRepository implements UsersRepository {
   constructor(@InjectModel(UserModel) private users: typeof UserModel) {}
 
+  async findByLogin(login: string): Promise<User> {
+    const user = await this.users.findOne({
+      raw: true,
+      where: {
+        login: login,
+      },
+    });
+    return user;
+  }
+
   async findById(id: string): Promise<User> {
     const user = await this.users.findByPk(id);
     return user;

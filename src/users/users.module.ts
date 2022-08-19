@@ -22,6 +22,6 @@ import { UserGroup } from 'src/database/relations/user-group.model';
           : SequelizeUsersRepository,
     },
   ],
-  exports: [SequelizeModule],
+  exports: [UsersService, SequelizeModule],
 })
 export class UsersModule {}

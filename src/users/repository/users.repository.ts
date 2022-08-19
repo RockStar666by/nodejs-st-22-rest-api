@@ -19,6 +19,10 @@ class UsersRepository implements Repository {
   update(id: string, dto: UpdateUserDto): Promise<User> {
     throw new Error('Method not implemented.');
   }
+
+  findByLogin(login: string): Promise<User> {
+    throw new Error('Method not implemented.');
+  }
 }
 
 export { UsersRepository };

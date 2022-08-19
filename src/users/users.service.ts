@@ -32,4 +32,9 @@ export class UsersService {
     const delUser = this.usersRepository.delete(id);
     return delUser;
   }
+
+  async getUserByLogin(id: string): Promise<User> {
+    const user = await this.usersRepository.findByLogin(id);
+    return user;
+  }
 }
