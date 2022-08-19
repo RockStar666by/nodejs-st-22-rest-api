@@ -39,7 +39,6 @@ export class UsersController {
   @MethodInfoLogger
   async getUser(@Param() params: UserParamsDto): Promise<User> {
     const user = await this.userService.getUser(params.id);
-    console.log(user);
     if (!user) {
       throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
     }

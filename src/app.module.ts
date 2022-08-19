@@ -7,6 +7,7 @@ import { Group } from './groups/group.model';
 import { GroupsModule } from './groups/groups.module';
 import { UserGroup } from './database/relations/user-group.model';
 import { RequestLoggerMiddleware } from './common/middleware/request-logger.middleware';
+import { AuthModule } from './auth/auth.module';
 const env = process.env.NODE_ENV || 'development';
 const config = dbConfig[env];
 
@@ -19,6 +20,7 @@ const config = dbConfig[env];
     }),
     UsersModule,
     GroupsModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
