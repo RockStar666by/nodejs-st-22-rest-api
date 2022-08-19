@@ -28,6 +28,7 @@ async function start() {
   const app = await NestFactory.create(AppModule, {
     logger: new TopLevelLogger(),
   });
+  app.enableCors();
   app.enableVersioning({
     type: VersioningType.URI,
   });
