@@ -5,8 +5,8 @@ import {
   ForeignKey,
   DataType,
 } from 'sequelize-typescript';
-import { User } from 'src/users/user.model';
-import { Group } from 'src/groups/group.model';
+import { User } from '../../users/user.model';
+import { Group } from '../../groups/group.model';
 
 @Table({ freezeTableName: true, createdAt: false, updatedAt: false })
 export class UserGroup extends Model {

@@ -5,8 +5,8 @@ import {
   DataType,
   BelongsToMany,
 } from 'sequelize-typescript';
-import { UserGroup } from 'src/database/relations/user-group.model';
-import { User } from 'src/users/user.model';
+import { UserGroup } from '../database/relations/user-group.model';
+import { User } from '../users/user.model';
 import { Permission } from './group.entity';
 
 @Table
