@@ -17,9 +17,9 @@ import { UserGroup } from '../database/relations/user-group.model';
     {
       provide: UsersRepository,
       useClass:
-        process.env.NODE_ENV === 'test'
-          ? InMemoryUsersRepository
-          : SequelizeUsersRepository,
+        // process.env.NODE_ENV === 'test'
+        //   ? InMemoryUsersRepository
+        SequelizeUsersRepository,
     },
   ],
   exports: [UsersService, SequelizeModule],

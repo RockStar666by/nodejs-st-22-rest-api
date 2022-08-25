@@ -16,7 +16,7 @@ import { CreateGroupDto } from './dto/create-group-dto';
 import { UpdateGroupDto } from './dto/update-group-dto';
 import { GroupParamsDto } from './dto/group-params-dto';
 import { AddUsersToGroupDto } from './dto/add-users-to-group-dto';
-import { MethodInfoLogger } from 'src/loggers/method-info-logger.decorator';
+import { MethodInfoLogger } from '../loggers/method-info-logger.decorator';
 
 @Controller({
   version: '1',

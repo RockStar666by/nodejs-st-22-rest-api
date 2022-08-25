@@ -4,7 +4,7 @@ import { CreateUserDto } from '../dto/create-user-dto';
 import { UpdateUserDto } from '../dto/update-user-dto';
 import { User } from '../user.entity';
 import { UsersRepository } from './users.repository';
-import { sortByLogin } from 'src/utils/sort-by-login';
+import { sortByLogin } from '../../utils/sort-by-login';
 @Injectable()
 class InMemoryUsersRepository implements UsersRepository {
   private users: Array<User> = [
