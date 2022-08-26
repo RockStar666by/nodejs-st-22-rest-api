@@ -90,5 +90,6 @@ export class GroupsController {
     if (!group) {
       throw new HttpException('Group not found', HttpStatus.BAD_REQUEST);
     }
+    return group;
   }
 }
