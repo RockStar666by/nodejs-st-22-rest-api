@@ -7,7 +7,7 @@ import { Op } from 'sequelize';
 import { CreateGroupDto } from '../dto/create-group-dto';
 import { UpdateGroupDto } from '../dto/update-group-dto';
 import { AddUsersToGroupDto } from '../dto/add-users-to-group-dto';
-import { User } from 'src/users/user.model';
+import { User } from '../../users/user.model';
 import { Sequelize } from 'sequelize-typescript';
 
 @Injectable()

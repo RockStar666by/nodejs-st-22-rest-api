@@ -1,6 +1,6 @@
-import { CreateUserDto } from 'src/users/dto/create-user-dto';
-import { UpdateUserDto } from 'src/users/dto/update-user-dto';
-import { User } from 'src/users/user.entity';
+import { CreateUserDto } from '../users/dto/create-user-dto';
+import { UpdateUserDto } from '../users/dto/update-user-dto';
+import { User } from '../users/user.entity';
 
 export interface Repository {
   findById(id: string): Promise<User>;

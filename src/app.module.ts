@@ -17,6 +17,7 @@ const config = dbConfig[env];
       ...config,
       models: [User, Group, UserGroup],
       autoLoadModels: true,
+      logging: false,
     }),
     UsersModule,
     GroupsModule,

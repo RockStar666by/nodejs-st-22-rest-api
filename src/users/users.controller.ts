@@ -16,7 +16,7 @@ import { CreateUserDto } from './dto/create-user-dto';
 import { UpdateUserDto } from './dto/update-user-dto';
 import { AutoSuggestUsersDto } from './dto/auto-suggest-users-dto';
 import { UserParamsDto } from './dto/user-params-dto';
-import { MethodInfoLogger } from 'src/loggers/method-info-logger.decorator';
+import { MethodInfoLogger } from '../loggers/method-info-logger.decorator';
 
 @Controller({
   version: '1',
@@ -27,7 +27,7 @@ export class UsersController {
   @Get('users')
   @MethodInfoLogger
   async getAllUsers(@Query() query?: AutoSuggestUsersDto) {
-    const { loginSubstring, limit } = query;
+    const { loginSubstring, limit } = query || {};
     const filteredUsers = await this.userService.getAllUsers(
       loginSubstring,
       limit,
@@ -78,5 +78,6 @@ export class UsersController {
     if (!user) {
       throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
     }
+    return user;
   }
 }

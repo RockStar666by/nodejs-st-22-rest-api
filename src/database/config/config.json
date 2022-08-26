@@ -18,19 +18,13 @@
   },
   "test": {
     "dialect": "postgres",
-    "dialectOptions": {
-      "ssl": {
-        "require": true,
-        "rejectUnauthorized": false
-      }
-    },
     "define": {
       "timestamps": false
     },
-    "username": "ehtvltsrnrdkrz",
-    "password": "4cdbc855146016dcae522e15766ea7c00f4db2a652fc46a9954f39fc68e193a8",
-    "database": "de6takmp0lqgtt",
-    "host": "ec2-3-248-121-12.eu-west-1.compute.amazonaws.com",
+    "username": "postgres",
+    "password": "1111",
+    "database": "postgres",
+    "host": "127.0.0.1",
     "port": "5432"
   },
   "production": {

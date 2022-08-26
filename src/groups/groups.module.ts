@@ -6,8 +6,8 @@ import { GroupsController } from './groups.controller';
 import { GroupsService } from './groups.service';
 import { Group } from './group.model';
 import { GroupsRepository } from './repository/groups.repository';
-import { User } from 'src/users/user.model';
-import { UserGroup } from 'src/database/relations/user-group.model';
+import { User } from '../users/user.model';
+import { UserGroup } from '../database/relations/user-group.model';
 
 @Module({
   imports: [SequelizeModule.forFeature([Group, User, UserGroup])],
